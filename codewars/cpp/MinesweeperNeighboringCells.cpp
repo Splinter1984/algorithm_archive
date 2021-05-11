@@ -30,37 +30,22 @@ int check_neighbors(char **board, const int row_min,
 {
     int count = 0;
     for (int i = row_min; i < row_max; i++)
-    {
         for (int j = col_min; j < col_max; j++)
-        {
             if(is_mine(board[i][j]))
                 ++count;
-        }
-    }
     return count;
 }
 
 void compute_number_mines(char **board, const int rows, const int cols)
 {
-    int r_min, r_max, c_min, c_max;
     for (int i = 0; i < rows; i++)
     {
         for (int j = 0; j < cols; j++)
         { 
             if (is_mines_counter(board[i][j]))
             {
-                r_min = i - 1;
-                r_max = i + 2;
-                c_min = j - 1;
-                c_max = j + 2;
-                if (i == 0)
-                    r_min = i;
-                if (i+1 == rows)
-                    r_max = rows;
-                if (j == 0)
-                    c_min = j;
-                if (j+1 == cols)
-                    c_max = cols;
+                int r_min = std::max(0, i-1), r_max = std::min(i+2, rows);
+                int c_min = std::max(0, j-1), c_max = std::min(j+2, cols);
                 board[i][j] = '0' + check_neighbors(board, r_min, r_max, c_min, c_max);
             }
         }
