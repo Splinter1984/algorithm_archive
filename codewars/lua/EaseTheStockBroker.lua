@@ -45,25 +45,25 @@ function solution.balanceStatement(lst)
         local buy, sell = 0, 0
         for _, order in pairs(split(lst, ", ")) do
                 if order ~= "" then
-                local block = split(order, " ")
-                local bad = false
-                if block[2]:find('.', 1, true) then
-                        bad = true
-                elseif not block[3]:find('.', 1, true) then
-                        bad = true
-                elseif block[4] ~= "B" and block[4] ~= "S" then
-                        bad = true
-                end
-                if not bad then
-                        local count = tonumber(block[2])*tonumber(block[3])
-                        if block[4] == "B" then
-                                buy=buy+count
-                        else
-                                sell=sell+count
+                        local block = split(order, " ")
+                        local bad = false
+                        if block[2]:find('.', 1, true) then
+                                bad = true
+                        elseif not block[3]:find('.', 1, true) then
+                                bad = true
+                        elseif block[4] ~= "B" and block[4] ~= "S" then
+                                bad = true
                         end
-                else
-                        bad_format[#bad_format+1]=order
-                end
+                        if not bad then
+                                local count = tonumber(block[2])*tonumber(block[3])
+                                if block[4] == "B" then
+                                        buy=buy+count
+                                else
+                                        sell=sell+count
+                                end
+                        else
+                                bad_format[#bad_format+1]=order
+                        end
                 end
         end
         local str_buy = tostring(string.format("%.f", buy))
