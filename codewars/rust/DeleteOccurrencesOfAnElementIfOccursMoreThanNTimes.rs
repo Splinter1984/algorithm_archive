@@ -20,12 +20,11 @@ fn delete_nth(lst: &[u8], n: usize) -> Vec<u8> {
     let mut result: Vec<u8> = Vec::new();
     let mut num_lib: HashMap<u8, usize> = HashMap::new();
     for val in lst.iter(){
-        if num_lib.contains_key(&val) {
-            num_lib.insert(*val, num_lib[val]+1);
-        } else {
+        if !num_lib.contains_key(&val) {
             num_lib.insert(*val, 1);
         }
         if num_lib[val] <= n {
+            num_lib.insert(*val, num_lib[val]+1);
             result.push(*val);
         }
     }
